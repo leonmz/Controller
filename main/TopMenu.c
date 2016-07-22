@@ -46,8 +46,16 @@ void initController()
 	UartInit();									//Initialize Nios UART
 
 
-	remoteEn = 0;								//Disable Remote Control (make sure Nios core has the right of the UART)
-
+	remoteEn = 1;								//Disable Remote Control (make sure Nios core has the right of the UART)
+	DisClear();
+	DisCurPos(1,1);
+	DisWrStr("Remote Mode!");
+	KPLED_All_Off();
+	while(remoteEn){
+    }
+	DisClear();
+	DisCurPos(1,1);
+	DisWrStr("Initializing...");
 	Stop();										//Send a Stop instruction to the Timing Engine. Make sure it's not firing on initial state.
 
 
