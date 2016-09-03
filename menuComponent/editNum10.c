@@ -234,7 +234,7 @@ unsigned int editNum10(unsigned char chnl, unsigned char SorE, unsigned int num,
 							DisCurPos(row,col);
 							DisWrStr("ERR:OutOfRng ");
 							delay(MSG_DELAY);
-
+							return Dis10toNum10(num_buff); //allow change without match all condition
 							num_str = Num10toStr10(num);
 							num_buff = Str10toDis10(num_str);
 

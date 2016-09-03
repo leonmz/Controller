@@ -46,16 +46,8 @@ void initController()
 	UartInit();									//Initialize Nios UART
 
 
-	remoteEn = 1;								//Disable Remote Control (make sure Nios core has the right of the UART)
-	DisClear();
-	DisCurPos(1,1);
-	DisWrStr("Remote Mode!");
+	remoteEn = 0;								//Disable Remote Control (make sure Nios core has the right of the UART)
 	KPLED_All_Off();
-	while(remoteEn){
-    }
-	DisClear();
-	DisCurPos(1,1);
-	DisWrStr("Initializing...");
 	Stop();										//Send a Stop instruction to the Timing Engine. Make sure it's not firing on initial state.
 
 
@@ -128,7 +120,7 @@ void refreshTopMenuEntry(unsigned char curr_state)
 void enterTopMenuPage(unsigned char curr_state)
 {
 	if(curr_state==1)		enterParameterMenu();
-	else if(curr_state==2)	enterStartupMenu();
+	else if(curr_state==2)	enterStartupMenu(0);
 	else if(curr_state==3)	enterShutdownMenu();
 	else if(curr_state==4)	enterFireMenu();
 	else if(curr_state==5)	enterRemoteMenu();
@@ -161,7 +153,7 @@ void TopMenu()
 
 	showCoverPage();												//Display the "welcome screen".
 
-	enterStartupMenu();												//Enter startup instruction menu to guide through the startup sequence
+	enterStartupMenu(1);												//Enter startup instruction menu to guide through the startup sequence
 
 	unsigned char curr_state = 1;									//Make sure the menu starts from its first page
 

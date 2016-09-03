@@ -13,7 +13,7 @@
 #define CONFIG_H_
 
 //Engineering Mode
-#define ENGR_MODE		0x00     //if it is "0" then it will have 10 minutes countdown.
+#define ENGR_MODE		0x01     //if it is "0" then it will have 10 minutes countdown.
 
 //VFD Brightness
 #define VFD_BRT			0x03	//Brightness 0x00=100%; 0x01=75%; 0x02=50%; 0x03=25%;

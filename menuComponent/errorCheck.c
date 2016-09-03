@@ -3,6 +3,7 @@
  *
  *  Created on: Jan 3, 2015
  *      Author: Ce Guo
+ *  Modified on Aug 4th,2016  Leon
  */
 
 
@@ -95,12 +96,12 @@ unsigned char chkSingleTiming(unsigned char chnl, unsigned char SorE, unsigned i
 					return 1;
 			}
 		//Chnl 3
-		//Start:	Min=0,			Max=1s/RepRate - Break between two shots - 1
-		//End:		Min=Start+1,	Max=min{1s/RepRate - Break between two shots, Start+10000*100}
+		//Start:	Min=LHV(39ms)+9us(max of DC Preion Start),			Max=1s/RepRate - Break between two shots - 1
+		//End:		Min=Start+1,	Max=min{1s/RepRate - Break between two shots, Start+10000*100} Exact equal starttime+1ms
 		case 3:
 			if(SorE == 0)
 			{
-				if(data <= 100000000/LoadRAMRepRate()-IDLE_WINDOW-1)
+				if(data>=3900900 &&data <= 100000000/LoadRAMRepRate()-IDLE_WINDOW-1)
 					return 0;
 				else
 					return 1;
@@ -108,18 +109,18 @@ unsigned char chkSingleTiming(unsigned char chnl, unsigned char SorE, unsigned i
 			else
 			{
 				unsigned int chnl3Start = LoadRAMStartTime(3);
-				if(data > chnl3Start && data<= chnl3Start + 1000000 && data <= 100000000/LoadRAMRepRate()-IDLE_WINDOW )
+				if(data==chnl3Start+100000 && data > chnl3Start && data<= chnl3Start + 1000000 && data <= 100000000/LoadRAMRepRate()-IDLE_WINDOW )
 					return 0;
 				else
 					return 1;
 			}
 		//Chnl 4
-		//Start:	Min=HV(Chnl2) Stop,			Max=1s/RepRate - Break between two shots - 1
+		//Start:	Min=Max(HV(Chnl2) Stop, RF(Chnl3) Stop-9us)			Max=Min{1s/RepRate - Break between two shots - 1,RF(Chnl3) Stop-1us)
 		//End:		Min=Start+1,				Max=min{1s/RepRate - Break between two shots, Start+100*100}
 		case 4:
 			if(SorE == 0)
 			{
-				if(data >= LoadRAMEndTime(2) && data <= 100000000/LoadRAMRepRate()-IDLE_WINDOW-1)
+				if(data>= LoadRAMEndTime(3)-900 && data<= LoadRAMEndTime(3)-100 && data >= LoadRAMEndTime(2) && data <= 100000000/LoadRAMRepRate()-IDLE_WINDOW-1)
 					return 0;
 				else
 					return 1;
@@ -139,7 +140,7 @@ unsigned char chkSingleTiming(unsigned char chnl, unsigned char SorE, unsigned i
 		case 5:
 			if(SorE == 0)
 			{
-				if(data >= LoadRAMStartTime(4) && data <= 100000000/LoadRAMRepRate()-IDLE_WINDOW-1)
+				if(data>=1800100 && data >= LoadRAMStartTime(4) && data <= 100000000/LoadRAMRepRate()-IDLE_WINDOW-1 && data<=LoadRAMStartTime(4)+10000)
 					return 0;
 				else
 					return 1;
@@ -152,9 +153,7 @@ unsigned char chkSingleTiming(unsigned char chnl, unsigned char SorE, unsigned i
 				else
 					return 1;
 			}
-		//Chnl 6,7,8,9
-		//Start:	Min=0;				Max=1s/RepRate - Break between two shots - 1
-		//End:		Min=Start+1;		Max=1s/RepRate - Break between two shots
+        //chnl 6(9ms before RF preion start time, Set automatically)
 		case 6:
 			if(SorE == 0)
 			{
@@ -170,6 +169,9 @@ unsigned char chkSingleTiming(unsigned char chnl, unsigned char SorE, unsigned i
 				else
 					return 1;
 			}
+			//Chnl 7,8,9
+			//Start:	Min=0;				Max=1s/RepRate - Break between two shots - 1
+			//End:		Min=Start+1;		Max=1s/RepRate - Break between two shots
 		case 7:
 			if(SorE == 0)
 			{

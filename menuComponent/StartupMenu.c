@@ -37,8 +37,9 @@ char* getStartupInst(unsigned char step, unsigned char line)
 	return "";
 }
 
-void startupAction(unsigned char step)
+void startupAction(unsigned char step,int flag)              //If it's first time running heater,enable that 10 minutes counter.
 {
+	if(flag)
 	switch(step)
 	{
 		case 1:	break;
@@ -91,7 +92,7 @@ void refreshStartupMenuPage(unsigned char curr_state)
 	DisWrStr(Num2toStr2(STARTUP_STEP));
 
 	DisCurPos(2,1);
-	DisWrStr(getStartupInst(curr_state,1));
+	DisWrStr(getStartupInst(curr_state,1));   //display instructions.
 	DisCurPos(3,1);
 	DisWrStr(getStartupInst(curr_state,2));
 
@@ -104,7 +105,7 @@ void refreshStartupMenuPage(unsigned char curr_state)
 
 }
 
-void enterStartupMenu()
+void enterStartupMenu(int first_time)   //first_time is 1 if the heater is started one time and will hava 10 minutes count down
 {
 	unsigned char curr_state = 1;
 	refreshStartupMenuPage(curr_state);
@@ -127,7 +128,7 @@ void enterStartupMenu()
 				}
 				else if(keyVal_latch == KEY_ENTER)
 				{
-					startupAction(curr_state);
+					startupAction(curr_state,first_time);
 					if(curr_state < STARTUP_STEP)
 					{
 						curr_state++;

@@ -92,7 +92,7 @@ unsigned int ReadRAM32Bits(unsigned int address)
 	input[4] = uart.receive_buffer[4];
 	input[5] = uart.receive_buffer[5];
 	input[6] = uart.receive_buffer[6];
-
+    //printf("%s",input);
 	uart.receive_flag = 0;
 
 	unsigned int byte0 = input[2];
@@ -101,7 +101,6 @@ unsigned int ReadRAM32Bits(unsigned int address)
 	unsigned int byte3 = input[5] << 24;
 
 	unsigned int data = byte0 + byte1 + byte2 + byte3;
-
 	return data;
 }
 

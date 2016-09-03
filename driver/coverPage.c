@@ -26,6 +26,7 @@ void showCoverPage()
 	DisWrStr("  Soft X-Ray Laser  ");
 	DisCurPos(3,1);
 	DisWrStr("Press MENU to Start");
+	printf("Engr: %d",ENGR_MODE);
 	if(ENGR_MODE)
 	{
 		DisCurPos(4,1);
