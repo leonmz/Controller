@@ -13,7 +13,7 @@ And this controller can also be used on any html-5 supported browser.
 
 ## Deployment
 No deploy, install instruction provided. 
-Just used for private research purpose
+Excluded used for private research purpose
 
 ## Built With
 
