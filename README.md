@@ -2,13 +2,13 @@
 
 This is a C project that runs on FPGA to provide a laser controller UI
 
-![](photos/UI.jpg)
-![](photos/Circuit.jpg)
+![](photos/UI.png)
+![](photos/Circuit.png)
 
 ## Web Controller UI
 And this controller can also be used on any html-5 supported browser.
-![](photos/DUI.jpg)
-![](photos/MUI.jpg)
+![](photos/DUI.png)
+![](photos/MUI.png)
 * [Design Report](photos/Web_UI.pdf) 
 
 ## Deployment
