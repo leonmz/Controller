@@ -18,7 +18,7 @@ Excluded used for private research purpose
 ## Built With
 
 * [Quartus](https://www.altera.com/downloads/download-center.html) - The FPGA platform
-* [Flask](http://flask.pocoo.org/) - Web Server
+* [LAMP](https://bitnami.com/stack/lamp) - Web Server
 
 
 ## Authors
